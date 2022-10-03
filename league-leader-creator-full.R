@@ -5,7 +5,7 @@ library(writexl)
 
 team_games <- {
   
-  Tables <- read_excel("C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Reshaped Standings/Advanced Standings.xlsx", 
+  Tables <- read_excel("advanced-standings.xlsx", 
                        sheet = "StandingsRAW")
   names(Tables)[1:3] = c("Long", "Wins", "Losses")
   
@@ -26,7 +26,7 @@ team_games <- {
 }
 
 
-batting <- read_excel("C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Game Log.xlsx", 
+batting <- read_excel("master.xlsx", 
                       sheet = "Batting")
 
 a <- merge(batting, team_games, by = "Team")
@@ -37,7 +37,7 @@ battingQ <- {
     dplyr::select(-Long, -Wins, -Losses, -Games, -PAQ, -IPQ)
 }
 
-pitching <- read_excel("C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Game Log.xlsx", 
+pitching <- read_excel("master.xlsx", 
                        sheet = "Pitching")
 
 a <- merge(pitching, team_games, by = "Team")
@@ -48,7 +48,7 @@ pitchingQ <- {
     dplyr::select(-Long, -Wins, -Losses, -Games, -PAQ, -IPQ)
 }
 
-fielding <- read_excel("C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Game Log.xlsx", 
+fielding <- read_excel("master.xlsx", 
                        sheet = "Fielding")
 
 
@@ -318,5 +318,5 @@ leadersFULL <- dplyr::bind_rows(h, `2b`, `3b`, hr, r, rbi, bb, kb,
                                 `bb%`, `k%`, `hr%`, war)
 
 
-write_xlsx(leadersFULL, "C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/League Leaders FULL BATTING.xlsx")
+# write_xlsx(leadersFULL, ".xlsx")
 

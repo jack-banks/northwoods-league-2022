@@ -1,4 +1,4 @@
-
+#libraries
 library(tidyverse)
 library(readxl)
 library(writexl)
@@ -7,7 +7,7 @@ library(writexl)
 
 team_games <- {
   
-  Tables <- read_excel("C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Reshaped Standings/Advanced Standings.xlsx", 
+  Tables <- read_excel("advanced-standings.xlsx", 
                        sheet = "StandingsRAW")
   names(Tables)[1:3] = c("Long", "Wins", "Losses")
   
@@ -28,13 +28,13 @@ team_games <- {
 }
 
 
-batting <- read_excel("C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Game Log.xlsx", 
+batting <- read_excel("master.xlsx", 
                       sheet = "Batting")
 
 b <- merge(batting, team_games, by = "Team")
 
 
-pitching <- read_excel("C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Game Log.xlsx", 
+pitching <- read_excel("master.xlsx", 
                        sheet = "Pitching")
 
 p <- merge(pitching, team_games, by = "Team")
@@ -178,14 +178,6 @@ cleanP <- {
     arrange(desc(WAR))
 }
 
-# cleanP$WAR[which(cleanP$IP == 0)] = "N/A"
-# cleanP$WAA[which(cleanP$IP == 0)] = "N/A"
-# cleanP$ERA[which(cleanP$IP == 0)] = "INF"
-# cleanP$FIP[which(cleanP$IP == 0)] = "INF"
-# cleanP$WHIP[which(cleanP$IP == 0)] = "INF"
-# cleanP$`ERA-`[which(cleanP$IP == 0)] = "INF"
-# cleanP$`FIP-`[which(cleanP$IP == 0)] = "INF"
-
 cleanPQ <- {
   pitchingQ %>% 
     select(PLAYER, Team, WAR, ERA, FIP, WHIP, G, GS, W, L, SV, IP, H, R, ER, BB,
@@ -203,12 +195,12 @@ cleanP36 <- {
     arrange(desc(WAR))
 }
 
-#write
+# write
 
-write_xlsx(cleanB, "C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Public Database/B.xlsx")
-write_xlsx(cleanBQ, "C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Public Database/BQ.xlsx")
-write_xlsx(cleanB100, "C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Public Database/B100.xlsx")
-write_xlsx(cleanP, "C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Public Database/P.xlsx")
-write_xlsx(cleanPQ, "C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Public Database/PQ.xlsx")
-write_xlsx(cleanP36, "C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Public Database/P36.xlsx")
+# write_xlsx(cleanB, "B.xlsx")
+# write_xlsx(cleanBQ, "BQ.xlsx")
+# write_xlsx(cleanB100, "B100.xlsx")
+# write_xlsx(cleanP, "P.xlsx")
+# write_xlsx(cleanPQ, "PQ.xlsx")
+# write_xlsx(cleanP36, "P36.xlsx")
 

@@ -6,7 +6,7 @@ library(writexl)
 
 team_games <- {
   
-  Tables <- read_excel("C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Reshaped Standings/Advanced Standings.xlsx", 
+  Tables <- read_excel("advanced-standings.xlsx", 
                        sheet = "StandingsRAW")
   names(Tables)[1:3] = c("Long", "Wins", "Losses")
   
@@ -27,7 +27,7 @@ team_games <- {
 }
 
 
-batting <- read_excel("C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Game Log.xlsx", 
+batting <- read_excel("master.xlsx", 
              sheet = "Batting")
 
 a <- merge(batting, team_games, by = "Team")
@@ -38,7 +38,7 @@ battingQ <- {
     dplyr::select(-Long, -Wins, -Losses, -Games, -PAQ, -IPQ)
 }
 
-pitching <- read_excel("C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/Game Log.xlsx", 
+pitching <- read_excel("master.xlsx", 
                        sheet = "Pitching")
 
 a <- merge(pitching, team_games, by = "Team")
@@ -222,6 +222,5 @@ names(warp)[3] = "x"
 leadersADV <- dplyr::bind_rows(woba, iso, wsb, warb,
                             fip, bbper, kper, warp)
 
-
-write_xlsx(leadersADV, "C:/Users/My Laptop/OneDrive/Desktop/Battle Creek/League Leaders Advanced.xlsx")
+# write_xlsx(leadersADV, ".xlsx")
 

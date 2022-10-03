@@ -1,0 +1,80 @@
+---
+title: "Expected Runs"
+author: "Jack Banks"
+date: "6/5/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(ggcorrplot)
+library(MASS)
+```
+
+# Loading Data
+
+```{r}
+Full = read_excel("runs-historical.xlsx")
+
+perGame = read_excel("runs-historical.xlsx", sheet = "Per Game")
+
+perGame <- {
+  perGame %>% 
+    filter(G > 26) %>% 
+    filter(Team != "TOTALS")
+}
+
+no2020 <- {
+  perGame %>% 
+    filter(Year != 2020)
+}
+```
+
+
+```{r}
+
+final <- lm(R ~ H + SECA + OBP , data = perGame)
+summary(final)
+
+```
+
+
+#Predicted vs. Actual
+
+```{r}
+
+plot(fitted(final) ~ perGame$R, main = "Best Model")
+abline(0,1)
+
+```
+
+# Runs Allowed
+
+```{r}
+
+RA = read_excel("runs-historical.xlsx", sheet = "RA Per Game")
+
+RA <- {
+  RA %>% 
+    filter(G > 26) %>% 
+    filter(Team != "TOTALS")
+}
+
+```
+
+#models
+
+```{r}
+
+finalRA <- lm(R ~ K + HR + WHIP, data = RA)
+summary(finalRA)
+
+```
+
+```{r}
+plot(fitted(finalRA) ~ RA$R, main = "Best Model")
+abline(0,1)
+```
